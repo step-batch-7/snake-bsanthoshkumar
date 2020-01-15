@@ -9,9 +9,10 @@ const NUM_OF_ROWS = 60;
 const GRID_ID = 'grid';
 
 class Game {
-  constructor(snake, ghostSnake) {
+  constructor(snake, ghostSnake, food) {
     this.snake = snake;
     this.ghostSnake = ghostSnake;
+    this.food = food;
   }
 }
 
@@ -48,6 +49,12 @@ const drawSnake = function(snake) {
     const cell = getCell(colId, rowId);
     cell.classList.add(snake.species);
   });
+};
+
+const drawFood = function(food) {
+  const [colId, rowId] = food.position;
+  const cell = getCell(colId, rowId);
+  cell.classList.add('food');
 };
 
 const handleKeyPress = snake => {
@@ -87,6 +94,7 @@ const setup = game => {
   createGrids();
   drawSnake(game.snake);
   drawSnake(game.ghostSnake);
+  drawFood(game.food);
 };
 
 const animateSnakes = (snake, ghostSnake) => {
@@ -94,18 +102,19 @@ const animateSnakes = (snake, ghostSnake) => {
   moveAndDrawSnake(ghostSnake);
 };
 
-const randomlyTurnSnake = snake => {
+const randomlyTurnSnake = ghostSnake => {
   let x = Math.random() * 100;
   if (x > 50) {
-    snake.turnLeft();
+    ghostSnake.turnLeft();
   }
 };
 
 const main = function() {
   const snake = initSnake();
   const ghostSnake = initGhostSnake();
-  const game = new Game(snake, ghostSnake);
+  const food = new Food(44, 30, [0, 0]);
+  const game = new Game(snake, ghostSnake, food);
   setup(game);
   setInterval(animateSnakes, 200, snake, ghostSnake);
-  setInterval(randomlyTurnSnake, 500, snake, ghostSnake);
+  setInterval(randomlyTurnSnake, 500, ghostSnake);
 };
