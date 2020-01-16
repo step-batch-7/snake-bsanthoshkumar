@@ -104,9 +104,23 @@ const drawScore = score => {
   scoreBoard.innerText = `Score : ${score}`;
 };
 
+const gameOver = () => {
+  clearInterval(snakeAnimation);
+  clearInterval(randomTurn);
+  document.body.removeChild(getGrid());
+  const text = document.createElement('h1');
+  text.innerText = 'Game Over!';
+  document.body.appendChild(text);
+};
+
 const update = game => {
   game.moveSnakes();
-  const { snake, ghostSnake, food, currentScore } = game.status;
+  const { snake, ghostSnake, food, currentScore, isGameOver } = game.status;
+  console.log(isGameOver);
+  if (isGameOver) {
+    gameOver();
+    return;
+  }
   updateSnake(snake);
   updateSnake(ghostSnake);
   updateFood(food);
@@ -120,6 +134,7 @@ const randomlyTurnSnake = ghostSnake => {
   }
 };
 
+let snakeAnimation, randomTurn;
 const main = function() {
   const snake = initSnake();
   const ghostSnake = initGhostSnake();
@@ -127,6 +142,6 @@ const main = function() {
   const scoreCard = new ScoreCard();
   const game = new Game(snake, ghostSnake, food, scoreCard);
   setup(game);
-  setInterval(update, 100, game);
-  setInterval(randomlyTurnSnake, 500, ghostSnake);
+  snakeAnimation = setInterval(update, 100, game);
+  randomTurn = setInterval(randomlyTurnSnake, 500, ghostSnake);
 };
