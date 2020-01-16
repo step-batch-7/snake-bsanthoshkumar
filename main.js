@@ -107,7 +107,6 @@ const drawScore = score => {
 const gameOver = () => {
   clearInterval(snakeAnimation);
   clearInterval(randomTurn);
-  document.body.removeChild(getGrid());
   const text = document.createElement('h1');
   text.innerText = 'Game Over!';
   document.body.appendChild(text);
