@@ -33,4 +33,12 @@ class Snake {
 
     this.positions.push([headX + deltaX, headY + deltaY]);
   }
+
+  get status() {
+    return {
+      positions: this.positions,
+      previousTail: this.previousTail,
+      species: this.species
+    };
+  }
 }

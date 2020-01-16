@@ -37,7 +37,7 @@ const eraseTail = function(snake) {
 };
 
 const drawSnake = function(snake) {
-  snake.location.forEach(([colId, rowId]) => {
+  snake.positions.forEach(([colId, rowId]) => {
     const cell = getCell(colId, rowId);
     cell.classList.add(snake.species);
   });
@@ -89,14 +89,22 @@ const setup = game => {
   drawFood(game.food);
 };
 
+const updateSnake = snake => {
+  eraseTail(snake);
+  drawSnake(snake);
+};
+
+const updateFood = food => {
+  eraseFood(food);
+  drawFood(food);
+};
+
 const update = game => {
   game.moveSnakes();
-  eraseTail(game.snake);
-  drawSnake(game.snake);
-  eraseTail(game.ghostSnake);
-  drawSnake(game.ghostSnake);
-  eraseFood(game.food);
-  drawFood(game.food);
+  const { snake, ghostSnake, food } = game.status;
+  updateSnake(snake);
+  updateSnake(ghostSnake);
+  updateFood(food);
 };
 
 const randomlyTurnSnake = ghostSnake => {

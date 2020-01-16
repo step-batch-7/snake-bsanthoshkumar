@@ -17,4 +17,12 @@ class Game {
       this.food.generateNewFood();
     }
   }
+
+  get status() {
+    return {
+      snake: this.snake.status,
+      ghostSnake: this.ghostSnake.status,
+      food: this.food.status
+    };
+  }
 }

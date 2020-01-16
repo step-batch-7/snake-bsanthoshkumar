@@ -14,4 +14,8 @@ class Food {
     this.colId = Math.floor(Math.random() * NUM_OF_COLS);
     this.rowId = Math.floor(Math.random() * NUM_OF_ROWS);
   }
+
+  get status() {
+    return { location: this.location, previousLocation: this.previousLocation };
+  }
 }
