@@ -3,10 +3,11 @@ const isFoodEatenBySnake = ([headX, headY], [foodX, foodY]) => {
 };
 
 class Game {
-  constructor(snake, ghostSnake, food) {
+  constructor(snake, ghostSnake, food, scoreCard) {
     this.snake = snake;
     this.ghostSnake = ghostSnake;
     this.food = food;
+    this.scoreCard = scoreCard;
   }
 
   moveSnakes() {
@@ -15,6 +16,7 @@ class Game {
     if (isFoodEatenBySnake(this.snake.head, this.food.location)) {
       this.snake.grow();
       this.food.generateNewFood();
+      this.scoreCard.updateScore();
     }
   }
 
@@ -22,7 +24,8 @@ class Game {
     return {
       snake: this.snake.status,
       ghostSnake: this.ghostSnake.status,
-      food: this.food.status
+      food: this.food.status,
+      currentScore: this.scoreCard.currentScore
     };
   }
 }

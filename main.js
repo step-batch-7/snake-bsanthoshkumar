@@ -99,12 +99,18 @@ const updateFood = food => {
   drawFood(food);
 };
 
+const drawScore = score => {
+  const scoreBoard = document.getElementById('scoreBoard');
+  scoreBoard.innerText = `Score : ${score}`;
+};
+
 const update = game => {
   game.moveSnakes();
-  const { snake, ghostSnake, food } = game.status;
+  const { snake, ghostSnake, food, currentScore } = game.status;
   updateSnake(snake);
   updateSnake(ghostSnake);
   updateFood(food);
+  drawScore(currentScore);
 };
 
 const randomlyTurnSnake = ghostSnake => {
@@ -118,7 +124,8 @@ const main = function() {
   const snake = initSnake();
   const ghostSnake = initGhostSnake();
   const food = new Food(44, 30, [0, 0]);
-  const game = new Game(snake, ghostSnake, food);
+  const scoreCard = new ScoreCard();
+  const game = new Game(snake, ghostSnake, food, scoreCard);
   setup(game);
   setInterval(update, 100, game);
   setInterval(randomlyTurnSnake, 500, ghostSnake);
