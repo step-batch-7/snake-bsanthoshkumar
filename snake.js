@@ -14,8 +14,15 @@ class Snake {
     return this.type;
   }
 
+  get head() {
+    return this.positions[this.positions.length - 1];
+  }
   turnLeft() {
     this.direction.turnLeft();
+  }
+
+  grow() {
+    this.positions.unshift(this.previousTail);
   }
 
   move() {
