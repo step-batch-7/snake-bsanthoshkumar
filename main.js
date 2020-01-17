@@ -115,7 +115,6 @@ const gameOver = () => {
 const update = game => {
   game.moveSnakes();
   const { snake, ghostSnake, food, currentScore, isGameOver } = game.status;
-  console.log(isGameOver);
   if (isGameOver) {
     gameOver();
     return;

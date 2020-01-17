@@ -14,7 +14,7 @@ class Game {
   moveSnakes() {
     this.snake.move();
     this.ghostSnake.move();
-    this.isGameOver = this.isSnakeOutOfGrid() || this.snake.isTouchedItself;
+    this.isGameOver = this.isSnakeOutOfGrid || this.snake.isTouchedItself;
     if (isFoodEatenBySnake(this.snake.head, this.food.location)) {
       this.snake.grow();
       this.food.generateNewFood();
@@ -22,7 +22,7 @@ class Game {
     }
   }
 
-  isSnakeOutOfGrid() {
+  get isSnakeOutOfGrid() {
     const [headX, headY] = this.snake.head;
     const isHeadXOutOfRange = headX < 0 || headX >= NUM_OF_COLS;
     const isHeadYOutOfRange = headY < 0 || headY >= NUM_OF_ROWS;
